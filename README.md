@@ -44,15 +44,15 @@ After building, run the executable:
 ### 5. Extending the Boilerplate
 
 You can add your own logic to `main.c` or create new files as needed. Use the input functions for safe and consistent user input.
-For example, to use this boilerplate for your Capstone Project, create new file such as `calculator.c`
+For example, to use this boilerplate for your Capstone Project, create new file such as `contact_manager.c`
 
 ```sh
-code calculator.c
+code contact_manager.c
 ```
 To compile and run it, use the `make` command as above
 
 ```sh
-make calculator
+make contact_manager
 ```
 
 

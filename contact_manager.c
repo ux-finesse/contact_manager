@@ -22,14 +22,7 @@ static void usage(const char *prog);
 
 int main(int argc, char *argv[]) {
     Contact contacts[MAX_CONTACTS];
-    int contact_count = 2;
-    // preload two contacts
-    snprintf(contacts[0].name, sizeof contacts[0].name,  "Peter Olugbenga");
-    snprintf(contacts[0].phone,sizeof contacts[0].phone, "07055630810");
-    snprintf(contacts[0].email,sizeof contacts[0].email, "olasunkanmifinesse@gmail.com");
-    snprintf(contacts[1].name, sizeof contacts[1].name,  "Mary Ayo");
-    snprintf(contacts[1].phone,sizeof contacts[1].phone, "08094774844");
-    snprintf(contacts[1].email,sizeof contacts[1].email, "maryflafs@yahoo.com");
+    int contact_count = 0;
 
     if (argc > 1) {
         const char *cmd = argv[1];
@@ -140,16 +133,16 @@ int main(int argc, char *argv[]) {
 static void usage(const char *prog) {
     fprintf(stderr,
             "Usage:\n"
-            "  %s               # interactive mode\n"
-            "  %s list          # list contacts\n"
-            "  %s add <name> <phone> <email>   # add contact\n"
-            "  %s search <name>    # search by name\n"
-            "  %s remove <name>    # remove by name\n",
+            "  %s interactive mode\n"
+            "  %s list  \n"
+            "  %s add <name> <phone> <email> \n"
+            "  %s search <name> \n"
+            "  %s remove <name> \n",
             prog, prog, prog, prog, prog);
     exit(1);
 }
 
-// search the index of a contact by name function
+// function to search the index of a contact by name 
 static int search_index(Contact contacts[], int count, const char *name) {
     for (int i = 0; i < count; i++) {
         if (strcmp(contacts[i].name, name) == 0) {
@@ -159,14 +152,14 @@ static int search_index(Contact contacts[], int count, const char *name) {
     return -1;
 }
 
-// delete the contact at index function
+// function delete the contact at index
 static void del_contact(Contact contacts[], int *count, int index) {
     memmove(&contacts[index], &contacts[index + 1],
             (size_t)(*count - index - 1) * sizeof(Contact));
     (*count)--;
 }
 
-// print all contacts (name, phone, email)
+// function that prints all contacts (name, phone, email)
 static void print_contacts(const Contact contacts[], int count) {
     printf("\nNumber of Contacts (%d):\n", count);
     for (int i = 0; i < count; i++) {
