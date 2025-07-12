@@ -11,13 +11,13 @@ typedef struct {
     char email[50];
 } Contact;
 
-static int search_index(Contact contacts[], int count, const char *name);
+int search_index(Contact contacts[], int count, const char *name);
 
-static void del_contact(Contact contacts[], int *count, int index);
+void del_contact(Contact contacts[], int *count, int index);
 
-static void print_contacts(const Contact contacts[], int count);
+void print_contacts(const Contact contacts[], int count);
 
-static void usage(const char *prog);
+void usage(const char *prog);
 
 
 int main(int argc, char *argv[]) {
@@ -91,7 +91,9 @@ int main(int argc, char *argv[]) {
             contacts[contact_count].email[sizeof contacts[0].email - 1] = '\0';
 
             contact_count++;
-            printf("\nContact added. Total now: %d\n", contact_count);
+            printf("\n---------------------------\n");
+            printf("Contact added. Total now: %d\n", contact_count);
+            printf("---------------------------\n");
 
         } else if (strcmp(cmd, "search") == 0) {
             char *name = get_string("\nEnter name to search: ");
@@ -118,7 +120,8 @@ int main(int argc, char *argv[]) {
             }
 
         } else if (strcmp(cmd, "quit") == 0) {
-            printf("\nExiting.......\n");
+            printf("\nExiting....\n");
+            printf("\n");
             break;
 
         } else {
@@ -130,20 +133,21 @@ int main(int argc, char *argv[]) {
 }
 
 // usage instructions
-static void usage(const char *prog) {
+void usage(const char *prog) {
     fprintf(stderr,
             "Usage:\n"
             "  %s interactive mode\n"
             "  %s list  \n"
             "  %s add <name> <phone> <email> \n"
             "  %s search <name> \n"
-            "  %s remove <name> \n",
-            prog, prog, prog, prog, prog);
+            "  %s remove <name> \n"
+            "  %s quit",
+            prog, prog, prog, prog, prog, prog);
     exit(1);
 }
 
 // function to search the index of a contact by name 
-static int search_index(Contact contacts[], int count, const char *name) {
+int search_index(Contact contacts[], int count, const char *name) {
     for (int i = 0; i < count; i++) {
         if (strcmp(contacts[i].name, name) == 0) {
             return i;
@@ -153,15 +157,17 @@ static int search_index(Contact contacts[], int count, const char *name) {
 }
 
 // function delete the contact at index
-static void del_contact(Contact contacts[], int *count, int index) {
+void del_contact(Contact contacts[], int *count, int index) {
     memmove(&contacts[index], &contacts[index + 1],
             (size_t)(*count - index - 1) * sizeof(Contact));
-    (*count)--;
+    (*count)--; // this reflects the removal
 }
 
 // function that prints all contacts (name, phone, email)
-static void print_contacts(const Contact contacts[], int count) {
-    printf("\nNumber of Contacts (%d):\n", count);
+void print_contacts(const Contact contacts[], int count) {
+    printf("\n-----------------------\n");
+    printf("Number of Contacts (%d): \n", count);
+    printf("-----------------------\n");
     for (int i = 0; i < count; i++) {
         printf("\n");
         printf("Name:  %s\n", contacts[i].name);
